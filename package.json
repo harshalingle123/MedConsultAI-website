@@ -1,0 +1,11 @@
+{
+  "name": "medconsultai-website",
+  "version": "1.0.0",
+  "description": "MedConsultAI - AI-powered medical consultation platform",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
