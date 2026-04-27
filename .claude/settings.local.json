@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:brainstorming)",
+      "WebFetch(domain:www.sarvam.ai)",
+      "WebSearch",
+      "Bash(tree:*)",
+      "Bash(done)"
+    ]
+  }
+}
