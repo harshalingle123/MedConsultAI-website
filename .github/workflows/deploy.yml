@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - master
+      - staging
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy-production:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout code
@@ -22,7 +25,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App (Production)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: medconsultai-prod-web
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_PROD }}
+          package: .
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy to Azure Web App (Staging)
         uses: azure/webapps-deploy@v3
         with:
           app-name: medconsultai-staging-web
