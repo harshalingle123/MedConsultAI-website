@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About MedConverse AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared-design.css">
     <link rel="stylesheet" href="css/about-page.css">
   </head>
   <body>
-    <div class="frame">
-      <header class="topbar">
-        <a class="brand" href="index.html"><span class="logo"><span class="logo-heart"></span></span><span>MedConverse <strong>AI</strong></span></a>
-        <nav class="nav">
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-brand" href="index.html">
+          <span class="brand-icon"><span class="brand-heart"></span></span>
+          <span>MedConverse <strong>AI</strong></span>
+        </a>
+        <nav class="site-nav">
           <a href="steps.html">How It Works</a>
           <a href="index.html#features">Features</a>
           <a href="integrations.html">Integrations</a>
@@ -19,86 +26,86 @@
           <a href="faq.html">FAQ</a>
           <a class="active" href="about-us.html">About</a>
         </nav>
-        <div class="actions">
+        <div class="site-actions">
           <a class="btn btn-ghost" href="#">Log in</a>
           <a class="btn btn-primary" href="#">Start Free Trial</a>
         </div>
       </header>
 
-      <main class="page">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">About Us</p>
-            <h1>We're on a mission to <span>transform patient conversations</span> into better care.</h1>
-            <p>MedConverse AI helps healthcare teams automate conversations, fill their calendars, and focus on what truly matters - their patients.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary btn-large" href="#">Our Story</a>
-              <a class="btn btn-light btn-large" href="#">Watch Video</a>
+      <main class="page-content">
+        <section class="about-hero">
+          <div>
+            <span class="eyebrow">About Us</span>
+            <h1>We're on a mission to <span>transform medical consultations</span> into accurate clinical records.</h1>
+            <p class="hero-text">MedConverse AI records, transcribes, and analyzes doctor-patient consultations in real time — with speaker diarization, voice recognition, and AI-powered clinical summaries — so doctors can focus on patients, not paperwork.</p>
+            <div class="hero-buttons">
+              <a class="btn btn-primary btn-lg" href="#">Our Story</a>
+              <a class="btn btn-ghost btn-lg" href="#">Watch Video</a>
             </div>
           </div>
 
-          <div class="hero-visual">
+          <div class="about-visual">
             <div class="team-photo" aria-hidden="true">
               <span class="person p1"></span>
               <span class="person p2"></span>
               <span class="person p3"></span>
               <span class="person p4"></span>
-              <span class="laptop"></span>
-              <span class="desk-plant"></span>
+              <span class="about-laptop"></span>
+              <span class="about-plant"></span>
             </div>
             <aside class="quote-card">
               <span class="quote-mark">&#8220;</span>
-              <p>We built MedConverse AI after seeing how many patients were waiting for responses that never came. Our goal is simple: make sure no patient is missed, and every conversation leads to care.</p>
-              <div class="quote-author"><span class="avatar"></span><div><strong>Rohit Verma</strong><small>Co-founder &amp; CEO</small></div></div>
+              <p>We built MedConverse AI after seeing how much time doctors spend on documentation instead of patients. Our goal is simple: record every consultation, transcribe it accurately, and let AI handle the clinical notes.</p>
+              <div class="quote-author">
+                <span class="avatar"></span>
+                <div><strong>Rohit Verma</strong><small>Co-founder &amp; CEO</small></div>
+              </div>
             </aside>
           </div>
         </section>
 
-        <section class="story-values">
+        <section class="story-values reveal">
           <article class="intro-block">
             <h2>Why We Started</h2>
-            <p>Healthcare teams are overwhelmed with calls, messages, and manual follow-ups. We saw clinics losing potential patients every day.</p>
-            <p>MedConverse AI was born to change that - using AI to make patient communication instant, smarter, and more human.</p>
+            <p>Doctors spend up to 50% of their time on clinical documentation — writing notes, transcribing consultations, filling out records. We saw healthcare professionals burning out on paperwork instead of focusing on the patients in front of them.</p>
+            <p>MedConverse AI was born to change that — using real-time transcription, speaker diarization, and AI-powered clinical analysis to turn every consultation into structured, accurate medical notes automatically.</p>
           </article>
-          <article class="value-card"><i class="vicon blue"></i><h3>Patient First</h3><p>Every feature we build starts with one question: does it improve patient care?</p></article>
-          <article class="value-card"><i class="vicon green"></i><h3>Trust &amp; Security</h3><p>We protect patient data with enterprise-grade security and privacy by design.</p></article>
-          <article class="value-card"><i class="vicon violet"></i><h3>Innovation</h3><p>We're constantly improving our AI to deliver better conversations and results.</p></article>
-          <article class="value-card"><i class="vicon amber"></i><h3>Together</h3><p>We grow with our customers and succeed when they succeed.</p></article>
+          <article class="value-card"><i class="value-icon blue"></i><h3>Doctor First</h3><p>Every feature — from real-time transcription to AI summaries — starts with one question: does it give doctors more time with patients?</p></article>
+          <article class="value-card"><i class="value-icon mint"></i><h3>Trust &amp; Security</h3><p>We protect patient data with role-based access control, encrypted storage, multi-tenant isolation, and enterprise-grade security by design.</p></article>
+          <article class="value-card"><i class="value-icon violet"></i><h3>Innovation</h3><p>We're constantly advancing our speaker diarization, voice recognition, and AI analysis to deliver more accurate, useful clinical notes.</p></article>
+          <article class="value-card"><i class="value-icon amber"></i><h3>Together</h3><p>We grow with our 500+ healthcare teams — from solo clinics to multi-location hospitals — and succeed when they succeed.</p></article>
         </section>
 
-        <section class="team">
+        <section class="team-section reveal">
           <div class="team-intro">
             <h2>The People Behind MedConverse AI</h2>
-            <p>A passionate team of healthcare and technology experts working together to build the future of patient engagement.</p>
+            <p>A passionate team of healthcare and AI experts building the platform that turns medical consultations into accurate, structured clinical documentation.</p>
           </div>
           <div class="team-grid">
-            <article class="member"><span class="avatar male"></span><div><strong>Rohit Verma</strong><small>Co-founder &amp; CEO</small></div></article>
-            <article class="member"><span class="avatar female"></span><div><strong>Anjali Sharma</strong><small>Co-founder &amp; CTO</small></div></article>
-            <article class="member"><span class="avatar male"></span><div><strong>Vikram Singh</strong><small>Head of AI</small></div></article>
-            <article class="member"><span class="avatar female"></span><div><strong>Neha Kapoor</strong><small>Head of Customer Success</small></div></article>
-            <article class="member"><span class="avatar male"></span><div><strong>Arjun Patel</strong><small>Head of Product</small></div></article>
+            <article class="member-card"><span class="avatar"></span><div><strong>Rohit Verma</strong><small>Co-founder &amp; CEO</small></div></article>
+            <article class="member-card"><span class="avatar female"></span><div><strong>Anjali Sharma</strong><small>Co-founder &amp; CTO</small></div></article>
+            <article class="member-card"><span class="avatar"></span><div><strong>Vikram Singh</strong><small>Head of AI</small></div></article>
+            <article class="member-card"><span class="avatar female"></span><div><strong>Neha Kapoor</strong><small>Head of Customer Success</small></div></article>
+            <article class="member-card"><span class="avatar"></span><div><strong>Arjun Patel</strong><small>Head of Product</small></div></article>
           </div>
         </section>
 
-        <section class="stats">
-          <article><i class="sicon blue"></i><div><strong>500+</strong><span>Happy Healthcare Teams</span></div></article>
-          <article><i class="sicon green"></i><div><strong>2M+</strong><span>Appointments Booked</span></div></article>
-          <article><i class="sicon violet"></i><div><strong>10M+</strong><span>Conversations Automated</span></div></article>
-          <article><i class="sicon amber"></i><div><strong>4.9/5</strong><span>Average Customer Rating</span></div></article>
+        <section class="about-stats reveal">
+          <article><i class="stat-dot blue"></i><div><strong>500+</strong><span>Healthcare Teams</span></div></article>
+          <article><i class="stat-dot mint"></i><div><strong>10M+</strong><span>Minutes Transcribed</span></div></article>
+          <article><i class="stat-dot violet"></i><div><strong>95%+</strong><span>Transcription Accuracy</span></div></article>
+          <article><i class="stat-dot amber"></i><div><strong>50+</strong><span>Languages Supported</span></div></article>
         </section>
 
-        <section class="cta">
-          <div class="cta-copy">
-            <span class="rocket"></span>
-            <div>
-              <h2>Join 500+ healthcare teams already growing with MedConverse AI</h2>
-              <p>Start automating conversations and converting more patients today.</p>
-            </div>
+        <section class="cta-banner">
+          <div class="cta-content">
+            <h2>Join 500+ healthcare teams already transcribing consultations with MedConverse AI</h2>
+            <p>Start recording, transcribing, and analyzing medical consultations with AI-powered speaker diarization today.</p>
           </div>
-          <div class="cta-side">
+          <div class="cta-actions">
             <div class="cta-buttons">
-              <a class="btn btn-light btn-large" href="#">Start Free Trial</a>
-              <a class="btn btn-outline btn-large" href="#">Book a Demo</a>
+              <a class="btn btn-lg" href="#" style="background:#fff;color:var(--blue);font-weight:700;">Start Free Trial</a>
+              <a class="btn btn-outline btn-lg" href="#">Book a Demo</a>
             </div>
             <div class="cta-points">
               <span>14-day free trial</span>
@@ -109,5 +116,21 @@
         </section>
       </main>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal, .stagger').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+    </script>
   </body>
 </html>

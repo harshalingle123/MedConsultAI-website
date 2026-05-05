@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MedConverse AI FAQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared-design.css">
     <link rel="stylesheet" href="css/faq-page.css">
   </head>
   <body>
-    <div class="frame">
-      <header class="topbar">
-        <a class="brand" href="index.html"><span class="logo"><span class="logo-heart"></span></span><span>MedConverse <strong>AI</strong></span></a>
-        <nav class="nav">
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-brand" href="index.html">
+          <span class="brand-icon"><span class="brand-heart"></span></span>
+          <span>MedConverse <strong>AI</strong></span>
+        </a>
+        <nav class="site-nav">
           <a href="steps.html">How It Works</a>
           <a href="index.html#features">Features</a>
           <a href="integrations.html">Integrations</a>
@@ -19,23 +26,23 @@
           <a class="active" href="faq.html">FAQ</a>
           <a href="about-us.html">About</a>
         </nav>
-        <div class="actions">
+        <div class="site-actions">
           <a class="btn btn-ghost" href="#">Log in</a>
           <a class="btn btn-primary" href="#">Start Free Trial</a>
         </div>
       </header>
 
-      <main class="page">
-        <section class="hero">
-          <p class="eyebrow">FAQ</p>
+      <main class="page-content">
+        <section class="faq-hero">
+          <span class="eyebrow">FAQ</span>
           <h1>Frequently Asked Questions</h1>
-          <p>Find answers to the most common questions about MedConverse AI.</p>
-          <label class="search"><input type="text" placeholder="Search your question..."></label>
-          <div class="tabs">
+          <p>Find answers to the most common questions about MedConverse AI's medical transcription platform.</p>
+          <input class="search-input" type="text" placeholder="Search your question...">
+          <div class="faq-tabs">
             <a class="tab active" href="#">General</a>
-            <a class="tab" href="#">Getting Started</a>
-            <a class="tab" href="#">Features</a>
-            <a class="tab" href="#">Integrations</a>
+            <a class="tab" href="#">Transcription</a>
+            <a class="tab" href="#">Speaker ID</a>
+            <a class="tab" href="#">HMS Integration</a>
             <a class="tab" href="#">Billing &amp; Plans</a>
             <a class="tab" href="#">Security &amp; Privacy</a>
           </div>
@@ -43,65 +50,174 @@
 
         <section class="faq-layout">
           <aside class="support-card">
-            <div class="support-copy">
+            <div>
               <h2>Still have questions?</h2>
               <p>Our support team is here to help you succeed.</p>
-              <div class="support-actions">
+              <div class="support-buttons">
                 <a class="btn btn-primary" href="#">Contact Support</a>
-                <a class="btn btn-light" href="#">Book a Demo</a>
+                <a class="btn btn-ghost" href="#">Book a Demo</a>
               </div>
             </div>
             <div class="support-visual" aria-hidden="true">
-              <span class="bubble"></span>
-              <span class="sheet"></span>
-              <span class="plant"></span>
+              <span class="support-bubble"></span>
+              <span class="support-sheet"></span>
+              <span class="support-plant"></span>
             </div>
           </aside>
 
           <section class="faq-list">
-            <article class="faq-item open"><header><strong>What is MedConverse AI?</strong><span>-</span></header><p>MedConverse AI is an AI-powered patient communication platform that automates conversations, books appointments, and helps healthcare teams grow their practice.</p></article>
-            <article class="faq-item"><header><strong>How does the AI chatbot work?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>Which channels are supported?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>How does appointment booking work?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>Can I integrate with my existing tools?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>Is my data secure?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>What kind of reporting and analytics do I get?</strong><span>+</span></header></article>
-            <article class="faq-item"><header><strong>Can I cancel or change my plan anytime?</strong><span>+</span></header></article>
+            <article class="faq-item open">
+              <header>
+                <strong>What is MedConverse AI?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">MedConverse AI is an AI-powered medical transcription platform that records doctor-patient consultations, identifies individual speakers in real time (speaker diarization), and generates clinical summaries automatically. It works in the browser — no special hardware required — and integrates directly with Hospital Management Systems.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>How does real-time transcription work?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">When you click "Record," MedConverse AI streams audio via WebSocket to our transcription engine (powered by Soniox). You see a live transcript appear as the conversation happens, with each speaker labeled automatically. The system supports multiple languages with automatic transliteration and English translation, so consultations in any supported language produce clean, readable notes.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>What is speaker diarization and identification?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">Speaker diarization detects "who spoke when" — automatically segmenting the transcript by speaker. Speaker identification goes a step further: by registering a ~10 second voice sample, MedConverse AI uses ECAPA-TDNN voice recognition to match speakers across sessions. So "Speaker 1" becomes "Dr. Smith" automatically, every time they speak.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>What happens if the internet drops during a recording?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">MedConverse AI has built-in offline resilience. If your connection drops mid-consultation, the system continues recording audio locally using IndexedDB. When the connection is restored, the audio is automatically uploaded and processed. You'll never lose a recording due to network issues.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>How does HMS integration work?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">We provide API-key authenticated endpoints and an embeddable recording widget for Hospital Management Systems. Your HMS registers patients via API, generates a short-lived widget token, and embeds the recorder in an iframe. Session results — transcripts, AI analysis, and audio — are available via API or webhook callbacks. Set up takes minutes, not weeks.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>Is patient data secure?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">Absolutely. MedConverse AI uses enterprise-grade security with Supabase JWT authentication, role-based access control (5-level RBAC), and Azure Blob Storage with encrypted connections. Multi-tenancy ensures complete data isolation between organizations. Audio files and transcripts are accessible only to authorized users within your organization.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>What AI analysis does MedConverse AI generate?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">After a session ends, our AI (powered by Groq) extracts a structured clinical conversation (doctor questions and patient responses), identifies key discussion points, medications, and diagnoses, and generates a concise clinical summary. Doctors can review, edit, and approve the summary before it's finalized — ensuring accuracy and clinical relevance.</p>
+            </article>
+            <article class="faq-item">
+              <header>
+                <strong>What plans are available?</strong>
+                <span class="faq-toggle">+</span>
+              </header>
+              <p class="faq-answer">We offer four tiers — Starter, Clinic, Hospital, and Enterprise — designed for practices of every size, from solo doctors to multi-location hospital networks. Each plan includes real-time transcription, speaker diarization, and AI analysis. We offer a 14-day free trial with no credit card required. Contact us for a custom Enterprise quote.</p>
+            </article>
           </section>
         </section>
 
-        <section class="newsletter">
-          <div class="news-copy">
-            <span class="mail"></span>
+        <section class="newsletter-banner">
+          <div class="newsletter-info">
+            <span class="newsletter-icon"></span>
             <div>
-              <h2>Stay updated with healthcare automation insights</h2>
-              <p>Get tips, product updates, and industry insights delivered to your inbox.</p>
+              <h2>Stay updated with medical transcription insights</h2>
+              <p>Get product updates, AI research, and clinical documentation tips delivered to your inbox.</p>
             </div>
           </div>
-          <form class="news-form">
+          <form class="newsletter-form" onsubmit="return false;">
             <input type="email" placeholder="Enter your email address">
             <button type="button">Subscribe</button>
           </form>
         </section>
 
-        <footer class="footer">
-          <div class="footer-brand">
-            <a class="brand" href="#"><span class="logo"><span class="logo-heart"></span></span><span>MedConverse <strong>AI</strong></span></a>
-            <p>AI-powered patient communication platform that helps healthcare teams automate conversations, book more appointments, and deliver exceptional care.</p>
-            <div class="socials"><span>in</span><span>x</span><span>f</span><span>yt</span></div>
+        <footer class="site-footer">
+          <div class="footer-top">
+            <div class="footer-brand-col">
+              <a class="site-brand" href="index.html">
+                <span class="brand-icon"><span class="brand-heart"></span></span>
+                <span>MedConverse <strong>AI</strong></span>
+              </a>
+              <p class="footer-brand-text">AI-powered medical transcription platform with real-time speaker diarization, voice recognition, and clinical analysis — helping healthcare teams turn consultations into accurate clinical documentation.</p>
+              <div class="footer-socials"><span>in</span><span>x</span><span>f</span><span>yt</span></div>
+            </div>
+            <div class="footer-links">
+              <div><strong>Product</strong><a href="index.html#features">Features</a><a href="integrations.html">Integrations</a><a href="#">Security</a><a href="#">Pricing</a><a href="steps.html">How It Works</a></div>
+              <div><strong>Resources</strong><a href="resources.html">Blog</a><a href="#">Help Center</a><a href="case-studies.html">Case Studies</a><a href="#">HMS API Docs</a><a href="#">Widget Guide</a></div>
+              <div><strong>Company</strong><a href="about-us.html">About Us</a><a href="#">Careers</a><a href="#">Partners</a><a href="#">Press Kit</a><a href="#">Contact Us</a></div>
+              <div><strong>Legal</strong><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Data Processing Agreement</a><a href="#">HIPAA Compliance</a><a href="#">Cookie Policy</a></div>
+            </div>
           </div>
-          <div class="footer-links">
-            <div><strong>Product</strong><a href="#">Features</a><a href="#">Integrations</a><a href="#">Security</a><a href="#">Pricing</a><a href="#">How It Works</a></div>
-            <div><strong>Resources</strong><a href="#">Blog</a><a href="#">Help Center</a><a href="#">Case Studies</a><a href="#">Webinars</a><a href="#">API Documentation</a></div>
-            <div><strong>Company</strong><a href="#">About Us</a><a href="#">Careers</a><a href="#">Partners</a><a href="#">Press Kit</a><a href="#">Contact Us</a></div>
-            <div><strong>Legal</strong><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Data Processing Agreement</a><a href="#">HIPAA Compliance</a><a href="#">Cookie Policy</a></div>
+          <div class="footer-bottom">
+            <span>&copy; 2026 MedConverse AI. All rights reserved.</span>
+            <div><span>HIPAA Compliant</span><span>SOC 2 Type II</span><span>GDPR Ready</span></div>
           </div>
         </footer>
-        <div class="footer-bar">
-          <span>&copy; 2025 MedConverse AI. All rights reserved.</span>
-          <div><span>HIPAA Compliant</span><span>SOC 2 Type II</span><span>GDPR Ready</span></div>
-        </div>
       </main>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // FAQ Accordion
+      document.querySelectorAll('.faq-item').forEach(function (item) {
+        item.querySelector('header').addEventListener('click', function () {
+          var wasOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(function (o) {
+            o.classList.remove('open');
+            var t = o.querySelector('.faq-toggle');
+            if (t) t.textContent = '+';
+          });
+          if (!wasOpen) {
+            item.classList.add('open');
+            var toggle = item.querySelector('.faq-toggle');
+            if (toggle) toggle.textContent = '+';
+          }
+        });
+      });
+
+      // Tabs
+      var tabs = document.querySelectorAll('.tab');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          tabs.forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+        });
+      });
+
+      // Search filter
+      var searchInput = document.querySelector('.search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var q = this.value.toLowerCase();
+          document.querySelectorAll('.faq-item').forEach(function (item) {
+            var text = item.textContent.toLowerCase();
+            item.style.display = text.includes(q) ? '' : 'none';
+          });
+        });
+      }
+
+      // Scroll reveal
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal, .stagger').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+    </script>
   </body>
 </html>

@@ -4,16 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MedConverse AI Integrations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared-design.css">
     <link rel="stylesheet" href="css/integrations-page.css">
   </head>
   <body>
-    <div class="frame">
-      <header class="topbar">
-        <a class="brand" href="index.html">
-          <span class="logo"><span class="logo-heart"></span></span>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-brand" href="index.html">
+          <span class="brand-icon"><span class="brand-heart"></span></span>
           <span>MedConverse <strong>AI</strong></span>
         </a>
-        <nav class="nav">
+        <nav class="site-nav">
           <a href="steps.html">How It Works</a>
           <a href="index.html#features">Features</a>
           <a class="active" href="integrations.html">Integrations</a>
@@ -22,84 +26,111 @@
           <a href="faq.html">FAQ</a>
           <a href="about-us.html">About</a>
         </nav>
-        <div class="actions">
+        <div class="site-actions">
           <a class="btn btn-ghost" href="#">Log in</a>
           <a class="btn btn-primary" href="#">Start Free Trial</a>
         </div>
       </header>
 
-      <main class="page">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Integrations</p>
-            <h1>Connect MedConverse AI With <span>Your Favorite Tools</span></h1>
-            <p>Seamlessly integrate with the tools you already use. Automate workflows, sync data, and deliver better patient experiences.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary btn-large" href="#">Start Free Trial</a>
-              <a class="btn btn-light btn-large" href="#">View API Docs</a>
+      <main class="page-content">
+        <section class="integ-hero">
+          <div>
+            <span class="eyebrow">Integrations</span>
+            <h1>Integrate MedConverse AI With <span>Your Healthcare Systems</span></h1>
+            <p class="hero-text">Seamlessly connect MedConverse AI with your Hospital Management System, cloud storage, and authentication — via API, embeddable widget, or webhooks.</p>
+            <div class="integ-buttons">
+              <a class="btn btn-primary btn-lg" href="#">Start Free Trial</a>
+              <a class="btn btn-ghost btn-lg" href="#">View API Docs</a>
             </div>
-            <div class="hero-points">
-              <article><i class="icon shield"></i><div><strong>Secure &amp; Compliant</strong><span>HIPAA compliant integrations</span></div></article>
-              <article><i class="icon sync"></i><div><strong>Easy to Integrate</strong><span>Set up in minutes, not hours</span></div></article>
+            <div class="hero-features">
+              <article class="hero-feature">
+                <span class="icon-box blue">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1.5L3.5 4.5V10C3.5 13.5 6.5 16.8 10 17.5C13.5 16.8 16.5 13.5 16.5 10V4.5L10 1.5Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+                </span>
+                <div><strong>Enterprise Security</strong><span>API key auth + JWT + RBAC</span></div>
+              </article>
+              <article class="hero-feature">
+                <span class="icon-box blue">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10C3 10 6 6 10 6C14 6 17 10 17 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="10" cy="10" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+                </span>
+                <div><strong>Quick Integration</strong><span>Widget embed or REST API</span></div>
+              </article>
             </div>
           </div>
 
           <section class="diagram-card" aria-label="Integration network">
-            <div class="node left top"><b>WhatsApp</b><span>Connect</span></div>
-            <div class="node left mid"><b>Google Calendar</b><span>Connected</span></div>
-            <div class="node left bottom"><b>Email (SMTP)</b><span>Connect</span></div>
-            <div class="hub">
-              <span class="hub-mark"></span>
+            <div class="dia-node n-lt"><b>HMS / EHR</b><span>API + Widget</span></div>
+            <div class="dia-node n-lm"><b>Soniox</b><span>Connected</span></div>
+            <div class="dia-node n-lb"><b>Azure Blob</b><span>Connected</span></div>
+            <div class="dia-hub">
+              <span class="hub-badge"></span>
               <b>MedConverse AI</b>
             </div>
-            <div class="node right top"><b>Slack</b><span>Connect</span></div>
-            <div class="node right mid"><b>Zapier</b><span>Connect</span></div>
-            <div class="node right bottom"><b>HubSpot</b><span>Connect</span></div>
-            <span class="connector c1"></span>
-            <span class="connector c2"></span>
-            <span class="connector c3"></span>
-            <span class="connector c4"></span>
-            <span class="connector c5"></span>
-            <span class="connector c6"></span>
-            <p class="more-pill">And 50+ more integrations</p>
+            <div class="dia-node n-rt"><b>Supabase</b><span>Connected</span></div>
+            <div class="dia-node n-rm"><b>Groq AI</b><span>Connected</span></div>
+            <div class="dia-node n-rb"><b>Webhooks</b><span>Configure</span></div>
+            <span class="dia-line dl1"></span>
+            <span class="dia-line dl2"></span>
+            <span class="dia-line dl3"></span>
+            <span class="dia-line dl4"></span>
+            <span class="dia-line dl5"></span>
+            <span class="dia-line dl6"></span>
+            <p class="dia-pill">Full REST API + WebSocket streaming</p>
           </section>
         </section>
 
-        <section class="catalog">
-          <div class="section-head">
+        <section class="catalog-section reveal">
+          <div class="section-label">
             <h2>Popular Integrations</h2>
             <p>Connect with the tools you use every day</p>
           </div>
-          <div class="catalog-grid">
-            <article class="tool-card"><h3>WhatsApp Business</h3><p>Automate conversations and engage patients on WhatsApp.</p><span class="status on">Connected</span></article>
-            <article class="tool-card"><h3>Google Calendar</h3><p>Sync appointments in real-time and avoid double bookings.</p><span class="status on">Connected</span></article>
-            <article class="tool-card"><h3>SMS (Twilio)</h3><p>Send automated SMS reminders and notifications.</p><span class="status">Connect</span></article>
-            <article class="tool-card"><h3>Email (SMTP)</h3><p>Send emails, notifications and appointment confirmations.</p><span class="status">Connect</span></article>
-            <article class="tool-card"><h3>Slack</h3><p>Get real-time updates and alerts on your Slack channel.</p><span class="status">Connect</span></article>
-            <article class="tool-card"><h3>Zapier</h3><p>Connect with 5,000+ apps using Zapier.</p><span class="status">Connect</span></article>
+          <div class="catalog-grid stagger">
+            <article class="tool-card"><h3>HMS / EHR Systems</h3><p>Embed the recording widget or use REST API to push transcripts and summaries to your hospital system.</p><span class="status-badge on">Available</span></article>
+            <article class="tool-card"><h3>Soniox (Transcription)</h3><p>Real-time streaming speech-to-text with multi-language support and word-level timestamps.</p><span class="status-badge on">Connected</span></article>
+            <article class="tool-card"><h3>Groq (AI Analysis)</h3><p>AI-powered clinical summary generation, conversation extraction, and medical insights.</p><span class="status-badge on">Connected</span></article>
+            <article class="tool-card"><h3>Azure Blob Storage</h3><p>Secure, encrypted cloud storage for all audio recordings with per-environment isolation.</p><span class="status-badge on">Connected</span></article>
+            <article class="tool-card"><h3>Supabase (Auth)</h3><p>JWT-based authentication with role-based access control and multi-tenant organization support.</p><span class="status-badge on">Connected</span></article>
+            <article class="tool-card"><h3>Webhooks</h3><p>Real-time event notifications for session.started and transcription.completed events.</p><span class="status-badge">Configure</span></article>
           </div>
-          <a class="view-link" href="#">View all integrations</a>
+          <a class="view-all-link" href="#">View API Documentation</a>
         </section>
 
-        <section class="benefits">
-          <article><i class="icon puzzle"></i><div><strong>Streamline Workflows</strong><p>Automate repetitive tasks and save valuable time.</p></div></article>
-          <article><i class="icon sync"></i><div><strong>Sync Data Effortlessly</strong><p>Keep your tools and data in perfect sync.</p></div></article>
-          <article><i class="icon chart"></i><div><strong>Increase Productivity</strong><p>Focus on patient care while we handle the rest.</p></div></article>
-          <article><i class="icon shield"></i><div><strong>Enterprise Security</strong><p>All integrations are secure and HIPAA compliant.</p></div></article>
+        <section class="benefits-strip reveal">
+          <article>
+            <span class="icon-box violet">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <div><strong>Embeddable Widget</strong><p>Drop the MedConverse AI recorder into any HMS via iframe — short-lived tokens keep it secure and session-scoped.</p></div>
+          </article>
+          <article>
+            <span class="icon-box blue">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10H17M14 7L17 10L14 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div><strong>REST API + WebSocket</strong><p>Full API for patient registration, session management, transcript retrieval, and real-time audio streaming.</p></div>
+          </article>
+          <article>
+            <span class="icon-box amber">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V6M10 14V18M2 10H6M14 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <div><strong>Webhook Notifications</strong><p>Get real-time callbacks when sessions start and transcriptions complete — keep your systems in sync automatically.</p></div>
+          </article>
+          <article>
+            <span class="icon-box mint">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1.5L3.5 4.5V10C3.5 13.5 6.5 16.8 10 17.5C13.5 16.8 16.5 13.5 16.5 10V4.5L10 1.5Z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div><strong>Multi-Tenant Security</strong><p>API key authentication, JWT tokens, 5-level RBAC, and complete data isolation between organizations.</p></div>
+          </article>
         </section>
 
-        <section class="cta">
-          <div class="cta-copy">
-            <span class="rocket"></span>
-            <div>
-              <h2>Ready to Supercharge Your Workflow?</h2>
-              <p>Connect your tools and automate patient conversations today.</p>
-            </div>
+        <section class="cta-banner">
+          <div class="cta-content">
+            <h2>Ready to Integrate MedConverse AI?</h2>
+            <p>Connect your HMS, embed the recording widget, or use the API to start transcribing consultations today.</p>
           </div>
-          <div class="cta-side">
+          <div class="cta-actions">
             <div class="cta-buttons">
-              <a class="btn btn-light btn-large" href="#">Start Free Trial</a>
-              <a class="btn btn-outline btn-large" href="#">Book a Demo</a>
+              <a class="btn btn-lg" href="#" style="background:#fff;color:var(--blue);font-weight:700;">Start Free Trial</a>
+              <a class="btn btn-outline btn-lg" href="#">Book a Demo</a>
             </div>
             <div class="cta-points">
               <span>14-day free trial</span>
@@ -110,5 +141,21 @@
         </section>
       </main>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal, .stagger').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+    </script>
   </body>
 </html>
