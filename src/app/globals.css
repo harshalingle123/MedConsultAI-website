@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   MedConverse AI design tokens
+   Semantic surfaces are RGB triplets so Tailwind can apply alpha modifiers.
+--------------------------------------------------------------------------- */
+:root {
+  --bg: 250 250 252; /* near-white canvas */
+  --surface: 255 255 255;
+  --surface-2: 243 245 249;
+  --text-heading: 18 32 58; /* ink-900 */
+  --text-body: 57 74 103; /* ink-700 */
+  --text-muted: 100 120 154; /* ink-500 */
+  --line: 217 225 236; /* ink-200 */
+}
+
+.dark {
+  --bg: 7 13 26; /* deep navy */
+  --surface: 15 23 42;
+  --surface-2: 22 32 54;
+  --text-heading: 240 244 250;
+  --text-body: 183 196 214;
+  --text-muted: 139 157 184;
+  --line: 36 52 80;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-bg font-body text-body;
+  }
+
+  ::selection {
+    @apply bg-primary-500/25 text-heading;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-bg;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    @apply relative py-24 md:py-32;
+  }
+
+  .glass {
+    @apply border border-white/50 bg-white/75 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-surface/75;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-premium focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:scale-[0.98];
+  }
+
+  .btn-solid {
+    @apply btn bg-ink-900 text-white shadow-glow hover:scale-[1.03] hover:bg-ink-800 dark:bg-white dark:text-ink-900 dark:hover:bg-ink-100;
+  }
+
+  .btn-primary-solid {
+    @apply btn bg-primary-600 text-white shadow-glow-primary hover:scale-[1.03] hover:bg-primary-500;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line bg-surface text-heading hover:scale-[1.02] hover:border-ink-300 dark:hover:border-ink-500;
+  }
+
+  /* Pill CTA with embedded circular icon chip */
+  .btn-chip {
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 text-white transition-transform duration-300 ease-premium group-hover:translate-x-0.5 group-hover:bg-white/25 dark:bg-ink-900/10 dark:text-ink-900 dark:group-hover:bg-ink-900/20;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-muted shadow-card;
+  }
+
+  .eyebrow-dot {
+    @apply h-1.5 w-1.5 rounded-full bg-accent-500;
+  }
+
+  .card {
+    @apply rounded-3.5xl border border-line/70 bg-surface shadow-card transition-all duration-500 ease-premium;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:border-line hover:shadow-card-hover hover:ring-1 hover:ring-primary-300/50 dark:hover:ring-primary-700/50;
+  }
+
+  .icon-pop {
+    @apply transition-transform duration-500 ease-premium group-hover:-rotate-3 group-hover:scale-110;
+  }
+
+  /* Long-form text styling for legal/policy pages */
+  .legal-prose h2 {
+    @apply mt-10 font-display text-2xl font-semibold tracking-tight text-heading;
+  }
+
+  .legal-prose p {
+    @apply mt-4 text-base leading-relaxed text-body;
+  }
+
+  .legal-prose ul {
+    @apply mt-4 list-disc space-y-2 pl-5 text-base leading-relaxed text-body marker:text-primary-500;
+  }
+
+  .legal-prose a {
+    @apply font-semibold text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400;
+  }
+
+  .legal-prose strong {
+    @apply font-semibold text-heading;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 bg-clip-text text-transparent;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+  }
+}
