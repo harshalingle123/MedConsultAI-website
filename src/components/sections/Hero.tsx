@@ -62,70 +62,107 @@ function RotatingWord() {
   );
 }
 
+const TYPEWRITER_TEXT = "AI Clinical Assistant For\nEvery Consultation";
+
+function TypewriterHeadline() {
+  const reduceMotion = useReducedMotion();
+  const [count, setCount] = useState(0);
+  const done = count >= TYPEWRITER_TEXT.length;
+
+  useEffect(() => {
+    if (done) return;
+    if (reduceMotion) {
+      setCount(TYPEWRITER_TEXT.length);
+      return;
+    }
+    const id = setTimeout(() => setCount((current) => current + 1), 45);
+    return () => clearTimeout(id);
+  }, [count, done, reduceMotion]);
+
+  const lines = TYPEWRITER_TEXT.slice(0, count).split("\n");
+
+  return (
+    <>
+      {lines.map((line, index) => (
+        <span key={index} className="block">
+          {line}
+          {index === lines.length - 1 ? (
+            <span
+              aria-hidden
+              className="ml-0.5 inline-block w-[3px] translate-y-[3px] animate-caret-blink bg-heading align-middle"
+              style={{ height: "0.8em" }}
+            />
+          ) : null}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function DashboardMock() {
   return (
-    <div className="card relative overflow-hidden rounded-4xl p-5 md:p-6">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-error/60" aria-hidden />
-          <span className="h-2.5 w-2.5 rounded-full bg-warning/60" aria-hidden />
-          <span className="h-2.5 w-2.5 rounded-full bg-success/60" aria-hidden />
+    <div className="card relative overflow-hidden rounded-3xl p-3 sm:rounded-4xl sm:p-5 md:p-6">
+      <div className="mb-3 flex items-center justify-between sm:mb-5">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="h-2 w-2 rounded-full bg-error/60 sm:h-2.5 sm:w-2.5" aria-hidden />
+          <span className="h-2 w-2 rounded-full bg-warning/60 sm:h-2.5 sm:w-2.5" aria-hidden />
+          <span className="h-2 w-2 rounded-full bg-success/60 sm:h-2.5 sm:w-2.5" aria-hidden />
         </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-[11px] font-bold text-success">
+        <span className="flex items-center gap-1.5 rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-bold text-success sm:px-3 sm:py-1 sm:text-[11px]">
           <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-success" aria-hidden />
           Recording
         </span>
       </div>
 
-      <div className="grid gap-3">
-        <div className="flex items-center gap-3 rounded-2xl border border-line/70 bg-surface-2/70 p-3.5">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300">
-            <Mic className="h-5 w-5" aria-hidden />
+      <div className="grid gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 sm:h-10 sm:w-10 sm:rounded-xl">
+            <Mic className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-heading">Live transcript · Speaker ID</p>
-            <p className="truncate text-xs text-muted">
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">Live transcript · Speaker ID</p>
+            <p className="truncate text-[10px] text-muted sm:text-xs">
               &ldquo;Dr. Rao: How long have the symptoms lasted?&rdquo;
             </p>
           </div>
-          <span className="ml-auto shrink-0 text-[11px] font-bold text-success">Live</span>
+          <span className="ml-auto shrink-0 text-[10px] font-bold text-success sm:text-[11px]">Live</span>
         </div>
 
-        <div className="flex items-center gap-3 rounded-2xl border border-primary-200/70 bg-primary-50/80 p-3.5 dark:border-primary-800 dark:bg-primary-950/60">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ink-900 text-white dark:bg-white dark:text-ink-900">
-            <Sparkles className="h-5 w-5" aria-hidden />
+        <div className="flex items-center gap-2 rounded-xl border border-primary-200/70 bg-primary-50/80 p-2 dark:border-primary-800 dark:bg-primary-950/60 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink-900 text-white dark:bg-white dark:text-ink-900 sm:h-10 sm:w-10 sm:rounded-xl">
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-heading">AI Medical Scribe</p>
-            <p className="truncate text-xs text-muted">
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">AI Medical Scribe</p>
+            <p className="truncate text-[10px] text-muted sm:text-xs">
               Generating summary · ICD-10 suggestions · interaction check
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 rounded-2xl border border-line/70 bg-surface-2/70 p-3.5">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300">
-            <FileText className="h-5 w-5" aria-hidden />
+        <div className="flex items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 sm:h-10 sm:w-10 sm:rounded-xl">
+            <FileText className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-heading">Summary ready for review</p>
-            <p className="truncate text-xs text-muted">SOAP note drafted · awaiting clinician approval</p>
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">Summary ready for review</p>
+            <p className="truncate text-[10px] text-muted sm:text-xs">SOAP note drafted · awaiting clinician approval</p>
           </div>
-          <span className="ml-auto shrink-0 rounded-full bg-warning/10 px-2.5 py-1 text-[11px] font-bold text-warning">
+          <span className="ml-auto hidden shrink-0 rounded-full bg-warning/10 px-2.5 py-1 text-[11px] font-bold text-warning sm:inline-block">
             Review
           </span>
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-3 gap-3 border-t border-line/70 pt-4 text-center">
+      <div className="mt-3 grid grid-cols-3 gap-2 border-t border-line/70 pt-2.5 text-center sm:mt-5 sm:gap-3 sm:pt-4">
         {[
           { label: "Speaker ID", value: "Dr. Rao" },
           { label: "Segments", value: "18" },
           { label: "Status", value: "Offline-safe" },
         ].map((item) => (
-          <div key={item.label}>
-            <p className="font-display text-lg font-semibold text-heading">{item.value}</p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-muted">
+          <div key={item.label} className="min-w-0">
+            <p className="truncate font-display text-xs font-semibold text-heading sm:text-lg">{item.value}</p>
+            <p className="truncate text-[8px] font-bold uppercase tracking-wider text-muted sm:text-[10px]">
               {item.label}
             </p>
           </div>
@@ -172,11 +209,11 @@ function TiltVisual() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -left-4 -top-5 md:-left-10"
+        className="absolute -left-1 -top-2.5 sm:-left-4 sm:-top-5 md:-left-10"
         style={{ transform: "translateZ(40px)" }}
       >
-        <span className="flex animate-float items-center gap-2 rounded-full border border-line/70 bg-surface px-4 py-2 text-xs font-bold text-heading shadow-card-hover">
-          <WifiOff className="h-4 w-4 text-accent-600" aria-hidden />
+        <span className="flex animate-float items-center gap-1 rounded-full border border-line/70 bg-surface px-2 py-1 text-[9px] font-bold text-heading shadow-card-hover sm:gap-2 sm:px-4 sm:py-2 sm:text-xs">
+          <WifiOff className="h-3 w-3 text-accent-600 sm:h-4 sm:w-4" aria-hidden />
           Works offline
         </span>
       </motion.div>
@@ -185,14 +222,14 @@ function TiltVisual() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -bottom-5 -right-3 md:-right-8"
+        className="absolute -bottom-2.5 -right-1 sm:-bottom-5 sm:-right-3 md:-right-8"
         style={{ transform: "translateZ(40px)" }}
       >
         <span
-          className="flex animate-float items-center gap-2 rounded-full border border-line/70 bg-surface px-4 py-2 text-xs font-bold text-heading shadow-card-hover"
+          className="flex animate-float items-center gap-1 rounded-full border border-line/70 bg-surface px-2 py-1 text-[9px] font-bold text-heading shadow-card-hover sm:gap-2 sm:px-4 sm:py-2 sm:text-xs"
           style={{ animationDelay: "-3s" }}
         >
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden />
+          <ShieldCheck className="h-3 w-3 text-primary-600 sm:h-4 sm:w-4" aria-hidden />
           Clinician-approved
         </span>
       </motion.div>
@@ -214,7 +251,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden pb-20 pt-36 md:pb-28 md:pt-48"
-      aria-labelledby="hero-heading"
+      aria-labelledby="hero-heading-mobile hero-heading-desktop"
     >
       <motion.div style={{ y: bgY }} className="absolute inset-0" aria-hidden>
         <FloatingOrbs />
@@ -231,20 +268,62 @@ export function Hero() {
         />
       </motion.div>
 
-      <div className="container-page relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
-        <div className="order-2 flex flex-col items-start gap-7 lg:order-1">
+      {/* Mobile-only hero: centered, stacked, typewriter headline */}
+      <div className="container-page relative flex flex-col items-center gap-6 text-center sm:hidden">
+        <motion.span variants={fadeUp} initial="hidden" animate="visible" custom={0} className="eyebrow">
+          <span className="eyebrow-dot" aria-hidden />
+          AI agents built for healthcare
+        </motion.span>
+
+        <motion.h1
+          id="hero-heading-mobile"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.1}
+          className="font-display text-3xl font-medium leading-[1.15] tracking-tight text-heading"
+        >
+          <TypewriterHeadline />
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 32, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-sm"
+        >
+          <div
+            aria-hidden
+            className="absolute -inset-6 rounded-4xl bg-gradient-to-br from-primary-500/10 via-transparent to-accent-500/10 blur-2xl"
+          />
+          <TiltVisual />
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.7}>
+          <BookDemoButton className="btn-solid group px-8 py-3 text-base">
+            Book a demo
+            <span className="btn-chip">
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </span>
+          </BookDemoButton>
+        </motion.div>
+      </div>
+
+      {/* Tablet & up: side-by-side layout */}
+      <div className="container-page relative hidden items-center gap-8 sm:grid sm:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        <div className="flex min-w-0 flex-col items-start gap-7">
           <motion.span variants={fadeUp} initial="hidden" animate="visible" custom={0} className="eyebrow">
             <span className="eyebrow-dot" aria-hidden />
             AI agents built for healthcare
           </motion.span>
 
           <motion.h1
-            id="hero-heading"
+            id="hero-heading-desktop"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={0.08}
-            className="font-display text-[2.75rem] font-medium leading-[1.05] tracking-tight text-heading sm:text-6xl xl:text-7xl"
+            className="font-display text-6xl font-medium leading-[1.05] tracking-tight text-heading xl:text-7xl"
           >
             AI Clinical Assistant
             <br />
@@ -308,7 +387,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           style={{ y: visualY }}
-          className="order-1 relative mx-auto w-full max-w-lg lg:order-2 lg:max-w-none"
+          className="relative min-w-0 w-full"
         >
           <div
             aria-hidden

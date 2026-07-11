@@ -101,6 +101,10 @@ const config: Config = {
           "30%": { opacity: "1", transform: "translateY(-3px)" },
           "60%, 100%": { opacity: "0.2", transform: "translateY(0)" },
         },
+        "caret-blink": {
+          "0%, 49%": { opacity: "1" },
+          "50%, 100%": { opacity: "0" },
+        },
       },
       animation: {
         marquee: "marquee 36s linear infinite",
@@ -108,6 +112,7 @@ const config: Config = {
         float: "float 6s ease-in-out infinite",
         "float-slow": "float-slow 12s ease-in-out infinite",
         "pulse-soft": "pulse-soft 2.4s ease-in-out infinite",
+        "caret-blink": "caret-blink 1s steps(1) infinite",
       },
     },
   },

@@ -24,28 +24,30 @@ export function Footer() {
             </p>
           </div>
 
-          {footerColumns.map((column) => (
-            <nav key={column.title} aria-label={`${column.title} links`}>
-              <h3 className="font-display text-sm font-bold uppercase tracking-wider text-heading">
-                {column.title}
-              </h3>
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href.startsWith("#") ? `/${link.href}` : link.href}
-                      {...(link.href.startsWith("http")
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="text-sm text-muted transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+          <div className="grid grid-cols-3 gap-4 sm:gap-10 md:contents">
+            {footerColumns.map((column) => (
+              <nav key={column.title} aria-label={`${column.title} links`}>
+                <h3 className="font-display text-sm font-bold uppercase tracking-wider text-heading">
+                  {column.title}
+                </h3>
+                <ul className="mt-4 flex flex-col gap-2.5">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href.startsWith("#") ? `/${link.href}` : link.href}
+                        {...(link.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        className="text-sm text-muted transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
         </Reveal>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 text-xs text-muted md:flex-row">

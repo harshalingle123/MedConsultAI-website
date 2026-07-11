@@ -347,7 +347,7 @@ export const footerColumns = [
     title: "Support",
     links: [
       { label: "FAQ", href: "#faq" },
-      { label: "Security", href: "#security" },
+      { label: "Security", href: "/security" },
     ],
   },
 ];
