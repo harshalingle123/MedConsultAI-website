@@ -13,7 +13,17 @@ import { Security } from "@/components/sections/Security";
 import { FAQ } from "@/components/sections/FAQ";
 import { CTA } from "@/components/sections/CTA";
 import { Footer } from "@/components/sections/Footer";
-import { faqs } from "@/lib/content";
+import { en } from "@/lib/i18n/dictionaries";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "MedConverse AI | AI Medical Assistant for Hospitals & Clinics",
+  },
+  description:
+    "MedConverse AI helps hospitals and clinics automate patient conversations, scheduling, documentation, report summaries, multilingual voice AI, and follow-ups.",
+  alternates: { canonical: "https://medconverse.ai" },
+};
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -30,10 +40,17 @@ const structuredData = {
       name: "MedConverse AI",
       applicationCategory: "HealthApplication",
       operatingSystem: "Web, Android",
+      offers: {
+        "@type": "Offer",
+        url: "https://medconverse.ai#cta",
+        priceCurrency: "USD",
+        price: "0",
+        description: "Book a demo — enterprise pricing on request",
+      },
     },
     {
       "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
+      mainEntity: en.faq.items.map((faq) => ({
         "@type": "Question",
         name: faq.q,
         acceptedAnswer: { "@type": "Answer", text: faq.a },

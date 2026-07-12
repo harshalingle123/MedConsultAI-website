@@ -5,11 +5,36 @@ export const metadata: Metadata = {
   title: "Security",
   description:
     "How MedConverse AI approaches platform security, data protection, and responsible disclosure.",
+  alternates: { canonical: "https://medconverse.ai/security" },
+  openGraph: {
+    title: "Security | MedConverse AI",
+    description:
+      "How MedConverse AI approaches platform security, data protection, and responsible disclosure.",
+  },
+  twitter: {
+    title: "Security | MedConverse AI",
+    description:
+      "How MedConverse AI approaches platform security, data protection, and responsible disclosure.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://medconverse.ai" },
+    { "@type": "ListItem", position: 2, name: "Security", item: "https://medconverse.ai/security" },
+  ],
 };
 
 export default function SecurityPage() {
   return (
-    <LegalPage title="Security">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <LegalPage type="security">
       <p>Security is a core design principle of MedConverse AI.</p>
       <p>
         We are committed to helping healthcare organizations protect sensitive
@@ -67,6 +92,7 @@ export default function SecurityPage() {
         <strong>Security Contact:</strong>{" "}
         <a href="mailto:admin@medconverse.ai">admin@medconverse.ai</a>
       </p>
-    </LegalPage>
+      </LegalPage>
+    </>
   );
 }

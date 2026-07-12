@@ -2,11 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { workflow } from "@/lib/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function Workflow() {
+  const { workflow } = useDict();
   const trackRef = useRef<HTMLOListElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -20,9 +21,9 @@ export function Workflow() {
       <div className="container-page">
         <SectionHeading
           id="workflow-heading"
-          eyebrow="How it works"
-          title="From 'Start' to signed-off, in five steps"
-          subtitle="Documentation isn't a single moment — it's a workflow. MedConverse AI automates every step without taking the clinician out of the loop."
+          eyebrow={workflow.eyebrow}
+          title={workflow.title}
+          subtitle={workflow.subtitle}
         />
 
         <ol ref={trackRef} className="relative mx-auto flex max-w-3xl flex-col gap-10 pl-14 md:gap-14">
@@ -33,7 +34,7 @@ export function Workflow() {
             style={{ scaleY: reduceMotion ? 1 : progress }}
           />
 
-          {workflow.map((item, index) => (
+          {workflow.items.map((item, index) => (
             <li key={item.step} className="relative">
               <Reveal delay={index * 0.05}>
                 <motion.span

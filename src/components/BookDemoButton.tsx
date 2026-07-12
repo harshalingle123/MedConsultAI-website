@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy, Mail, X } from "lucide-react";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 const DEMO_TO = "admin@medconverse.ai";
 const DEMO_CC = "k.chethan@medconverse.ai";
@@ -84,6 +85,7 @@ function CopyButton({
 }
 
 function FallbackDialog({ onClose }: { onClose: () => void }) {
+  const { bookDemoDialog: dialog } = useDict();
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -111,34 +113,32 @@ function FallbackDialog({ onClose }: { onClose: () => void }) {
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close dialog"
+            aria-label={dialog.closeAria}
             className="grid h-10 w-10 place-items-center rounded-full text-heading hover:bg-surface-2"
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
         </div>
         <h3 id="book-demo-fallback-title" className="font-display text-xl font-bold text-heading">
-          No email app configured
+          {dialog.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-body">
-          We couldn&apos;t open your email application. Please contact us manually at the
-          address below — copy the email address or the full request template to get
-          started.
-        </p>
+        <p className="mt-2 text-sm leading-relaxed text-body">{dialog.body}</p>
         <div className="mt-4 rounded-2xl bg-surface-2 px-4 py-3 text-sm font-semibold text-heading">
           <p>{DEMO_TO}</p>
-          <p className="mt-1 text-xs font-medium text-muted">CC: {DEMO_CC}</p>
+          <p className="mt-1 text-xs font-medium text-muted">
+            {dialog.ccLabel}: {DEMO_CC}
+          </p>
         </div>
         <div className="mt-5 flex flex-col gap-3">
           <CopyButton
             solid
-            label="Copy Email Address"
-            copiedLabel="Email Address Copied"
+            label={dialog.copyEmail}
+            copiedLabel={dialog.emailCopied}
             value={DEMO_TO}
           />
           <CopyButton
-            label="Copy Email Template"
-            copiedLabel="Email Template Copied"
+            label={dialog.copyTemplate}
+            copiedLabel={dialog.templateCopied}
             value={DEMO_TEMPLATE}
           />
         </div>

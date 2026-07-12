@@ -1,17 +1,36 @@
+"use client";
+
 import { Globe2, Languages as LanguagesIcon } from "lucide-react";
-import { languages } from "@/lib/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
+
+const languages = [
+  "Hindi",
+  "Bengali",
+  "Marathi",
+  "Telugu",
+  "Tamil",
+  "Gujarati",
+  "Urdu",
+  "Kannada",
+  "Odia",
+  "Punjabi",
+  "Malayalam",
+  "Assamese",
+];
 
 export function Languages() {
+  const dict = useDict();
+
   return (
     <section className="section" aria-labelledby="languages-heading">
       <div className="container-page">
         <SectionHeading
           id="languages-heading"
-          eyebrow="Every patient, understood"
-          title="Care in 30+ Indian languages"
-          subtitle="The Multilingual Communication Agent translates conversations in real time and generates multilingual summaries — enabling cross-language doctor-patient communication without an interpreter in the room."
+          eyebrow={dict.languagesSection.eyebrow}
+          title={dict.languagesSection.title}
+          subtitle={dict.languagesSection.subtitle}
         />
 
         <Stagger className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3" staggerDelay={0.04}>
@@ -32,13 +51,13 @@ export function Languages() {
           <StaggerItem>
             <span className="flex items-center gap-2 rounded-full border border-dashed border-line px-5 py-2.5 text-sm font-semibold text-muted">
               <LanguagesIcon className="h-4 w-4" aria-hidden />
-              + 30 languages supported
+              {dict.languagesSection.moreLabel}
             </span>
           </StaggerItem>
         </Stagger>
 
         <p className="mx-auto mt-6 max-w-xl text-center text-xs text-muted">
-          Representative list — full language coverage is confirmed during onboarding.
+          {dict.languagesSection.note}
         </p>
       </div>
     </section>

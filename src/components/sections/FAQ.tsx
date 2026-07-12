@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { faqs } from "@/lib/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 function FAQItem({
   question,
@@ -67,6 +67,7 @@ function FAQItem({
 }
 
 export function FAQ() {
+  const { faq: faqDict } = useDict();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -74,14 +75,14 @@ export function FAQ() {
       <div className="container-page max-w-4xl">
         <SectionHeading
           id="faq-heading"
-          eyebrow="FAQ"
-          title="Questions, answered"
-          subtitle="Everything clinic and hospital leaders ask before bringing AI into the consultation room."
+          eyebrow={faqDict.eyebrow}
+          title={faqDict.title}
+          subtitle={faqDict.subtitle}
         />
 
         <Reveal>
           <div className="flex flex-col gap-4">
-            {faqs.map((faq, index) => (
+            {faqDict.items.map((faq, index) => (
               <FAQItem
                 key={faq.q}
                 index={index}

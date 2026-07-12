@@ -5,11 +5,34 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "The terms that govern access to and use of the MedConverse AI platform.",
+  alternates: { canonical: "https://medconverse.ai/terms" },
+  openGraph: {
+    title: "Terms of Service | MedConverse AI",
+    description: "The terms that govern access to and use of the MedConverse AI platform.",
+  },
+  twitter: {
+    title: "Terms of Service | MedConverse AI",
+    description: "The terms that govern access to and use of the MedConverse AI platform.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://medconverse.ai" },
+    { "@type": "ListItem", position: 2, name: "Terms of Service", item: "https://medconverse.ai/terms" },
+  ],
 };
 
 export default function TermsOfServicePage() {
   return (
-    <LegalPage title="Terms of Service" lastUpdated="July 2026">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <LegalPage type="terms" lastUpdated="July 2026">
       <p>Welcome to MedConverse AI.</p>
       <p>By accessing or using the platform, you agree to these Terms of Service.</p>
 
@@ -77,6 +100,7 @@ export default function TermsOfServicePage() {
         <strong>Email:</strong>{" "}
         <a href="mailto:admin@medconverse.ai">admin@medconverse.ai</a>
       </p>
-    </LegalPage>
+      </LegalPage>
+    </>
   );
 }

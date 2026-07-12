@@ -1,9 +1,13 @@
-import { securityFeatures, complianceNote } from "@/lib/content";
+"use client";
+
 import { iconMap } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem, Reveal } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function Security() {
+  const dict = useDict();
+
   return (
     <section
       id="security"
@@ -13,13 +17,13 @@ export function Security() {
       <div className="container-page">
         <SectionHeading
           id="security-heading"
-          eyebrow="Security & AI trust"
-          title="Security-first, with AI that knows its place"
-          subtitle="Every consultation touches protected health information, and every AI output is a suggestion. Every decision is still the clinician's."
+          eyebrow={dict.security.eyebrow}
+          title={dict.security.title}
+          subtitle={dict.security.subtitle}
         />
 
         <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.08}>
-          {securityFeatures.map((feature) => {
+          {dict.security.items.map((feature) => {
             const Icon = iconMap[feature.icon];
             return (
               <StaggerItem key={feature.title}>
@@ -37,7 +41,7 @@ export function Security() {
 
         <Reveal delay={0.15}>
           <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-muted">
-            {complianceNote}
+            {dict.security.complianceNote}
           </p>
         </Reveal>
       </div>

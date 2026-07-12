@@ -3,14 +3,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { platformFeatures } from "@/lib/content";
 import { iconMap } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 const AUTO_ADVANCE_MS = 5200;
 
 export function Platform() {
+  const dict = useDict();
+  const platformFeatures = dict.platform.items;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -20,13 +22,17 @@ export function Platform() {
   const autoPlay = inView && !paused && !reduceMotion;
 
   useEffect(() => {
+    setActive(0);
+  }, [dict]);
+
+  useEffect(() => {
     if (!autoPlay) return;
     const id = setInterval(
       () => setActive((current) => (current + 1) % platformFeatures.length),
       AUTO_ADVANCE_MS
     );
     return () => clearInterval(id);
-  }, [autoPlay, active]);
+  }, [autoPlay, active, platformFeatures.length]);
 
   const onKeyDown = useCallback((event: React.KeyboardEvent) => {
     const last = platformFeatures.length - 1;
@@ -59,9 +65,9 @@ export function Platform() {
       <div className="container-page">
         <SectionHeading
           id="platform-heading"
-          eyebrow="Product modules"
-          title="Everything a clinic needs, in one system"
-          subtitle="Beyond the scribe, MedConverse AI manages patients, appointments, follow-ups, and reporting in one multi-tenant, role-based workspace — and embeds directly into your existing HMS."
+          eyebrow={dict.platform.eyebrow}
+          title={dict.platform.title}
+          subtitle={dict.platform.subtitle}
         />
 
         <Reveal>
@@ -75,7 +81,7 @@ export function Platform() {
           >
             <div
               role="tablist"
-              aria-label="Platform capabilities"
+              aria-label={dict.platform.tablistAria}
               aria-orientation="vertical"
               onKeyDown={onKeyDown}
               className="flex flex-col gap-3"

@@ -1,21 +1,25 @@
-import { agents } from "@/lib/content";
+"use client";
+
 import { iconMap } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function Agents() {
+  const dict = useDict();
+
   return (
     <section id="agents" className="section" aria-labelledby="agents-heading">
       <div className="container-page">
         <SectionHeading
           id="agents-heading"
-          eyebrow="Meet the team"
-          title="Six specialized agents, one connected workflow"
-          subtitle="Each agent masters one part of the consultation — from the first conversation to the follow-up call — so documentation, coding, and care coordination happen without extra clicks."
+          eyebrow={dict.agents.eyebrow}
+          title={dict.agents.title}
+          subtitle={dict.agents.subtitle}
         />
 
         <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.09}>
-          {agents.map((agent) => {
+          {dict.agents.items.map((agent) => {
             const Icon = iconMap[agent.icon];
             return (
               <StaggerItem key={agent.name}>

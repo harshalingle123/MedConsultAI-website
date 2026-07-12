@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -18,9 +18,9 @@ import {
   Sparkles,
   WifiOff,
 } from "lucide-react";
-import { heroRotatingWords, heroTrustStrip } from "@/lib/content";
 import { FloatingOrbs } from "@/components/ui/FloatingOrbs";
 import { BookDemoButton } from "@/components/BookDemoButton";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -32,74 +32,141 @@ const fadeUp = {
 };
 
 function RotatingWord() {
+  const { hero } = useDict();
+  const rotatingWords = hero.rotatingWords;
   const [index, setIndex] = useState(0);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    setIndex(0);
+  }, [rotatingWords]);
+
+  useEffect(() => {
     if (reduceMotion) return;
     const id = setInterval(
-      () => setIndex((current) => (current + 1) % heroRotatingWords.length),
+      () => setIndex((current) => (current + 1) % rotatingWords.length),
       2600
     );
     return () => clearInterval(id);
-  }, [reduceMotion]);
+  }, [reduceMotion, rotatingWords]);
 
   return (
     <span className="relative inline-grid overflow-hidden align-bottom">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
-          key={heroRotatingWords[index]}
+          key={rotatingWords[index]}
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="text-gradient whitespace-nowrap pb-1"
         >
-          {heroRotatingWords[index]}
+          {rotatingWords[index]}
         </motion.span>
       </AnimatePresence>
     </span>
   );
 }
 
-const TYPEWRITER_TEXT = "AI Clinical Assistant For\nEvery Consultation";
+function Caret() {
+  return (
+    <span
+      aria-hidden
+      className="ml-0.5 inline-block w-[3px] translate-y-[3px] animate-caret-blink bg-heading align-middle"
+      style={{ height: "0.8em" }}
+    />
+  );
+}
+
+const headlinePhraseGradientStyle: CSSProperties = {
+  backgroundImage: "linear-gradient(90deg, #3B82F6 0%, #60A5FA 50%, #2DD4BF 100%)",
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent",
+};
+
+function GradientPhrase({ children }: { children: React.ReactNode }) {
+  return <span style={headlinePhraseGradientStyle}>{children}</span>;
+}
 
 function TypewriterHeadline() {
+  const { hero } = useDict();
+  const headlineRotatingPhrases = hero.headlineRotatingPhrases;
+  const typewriterText = `${hero.headlineLine1}\n${headlineRotatingPhrases[0]}`;
   const reduceMotion = useReducedMotion();
   const [count, setCount] = useState(0);
-  const done = count >= TYPEWRITER_TEXT.length;
+  const typingDone = count >= typewriterText.length;
+  const [rotateIndex, setRotateIndex] = useState(0);
 
   useEffect(() => {
-    if (done) return;
+    setCount(0);
+    setRotateIndex(0);
+  }, [typewriterText]);
+
+  useEffect(() => {
+    if (typingDone) return;
     if (reduceMotion) {
-      setCount(TYPEWRITER_TEXT.length);
+      setCount(typewriterText.length);
       return;
     }
     const id = setTimeout(() => setCount((current) => current + 1), 45);
     return () => clearTimeout(id);
-  }, [count, done, reduceMotion]);
+  }, [count, typingDone, reduceMotion, typewriterText]);
 
-  const lines = TYPEWRITER_TEXT.slice(0, count).split("\n");
+  useEffect(() => {
+    if (!typingDone || reduceMotion) return;
+    const id = setInterval(
+      () => setRotateIndex((current) => (current + 1) % headlineRotatingPhrases.length),
+      2600
+    );
+    return () => clearInterval(id);
+  }, [typingDone, reduceMotion, headlineRotatingPhrases]);
+
+  const typedLines = typewriterText.slice(0, count).split("\n");
+  const line1 = typedLines[0];
+  const typedLine2 = typedLines[1];
 
   return (
     <>
-      {lines.map((line, index) => (
-        <span key={index} className="block">
-          {line}
-          {index === lines.length - 1 ? (
-            <span
-              aria-hidden
-              className="ml-0.5 inline-block w-[3px] translate-y-[3px] animate-caret-blink bg-heading align-middle"
-              style={{ height: "0.8em" }}
-            />
-          ) : null}
+      <span className="block">
+        {line1}
+        {!typingDone && typedLine2 === undefined ? <Caret /> : null}
+      </span>
+      {typingDone ? (
+        <span className="relative grid overflow-hidden">
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.span
+              key={headlineRotatingPhrases[rotateIndex]}
+              initial={reduceMotion ? false : { y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={reduceMotion ? undefined : { y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="block pb-1"
+            >
+              <GradientPhrase>{headlineRotatingPhrases[rotateIndex]}</GradientPhrase>
+              <Caret />
+            </motion.span>
+          </AnimatePresence>
         </span>
-      ))}
+      ) : typedLine2 !== undefined ? (
+        <span className="block">
+          <GradientPhrase>{typedLine2}</GradientPhrase>
+          <Caret />
+        </span>
+      ) : null}
     </>
   );
 }
 
 function DashboardMock() {
+  const { hero } = useDict();
+  const mock = hero.mock;
+  const stats = [
+    { label: mock.speakerIdLabel, value: mock.speakerName },
+    { label: mock.segmentsLabel, value: mock.segmentsValue },
+    { label: mock.statusLabel, value: mock.statusValue },
+  ];
+
   return (
     <div className="card relative overflow-hidden rounded-3xl p-3 sm:rounded-4xl sm:p-5 md:p-6">
       <div className="mb-3 flex items-center justify-between sm:mb-5">
@@ -110,56 +177,48 @@ function DashboardMock() {
         </div>
         <span className="flex items-center gap-1.5 rounded-full bg-success/10 px-2 py-0.5 text-[9px] font-bold text-success sm:px-3 sm:py-1 sm:text-[11px]">
           <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-success" aria-hidden />
-          Recording
+          {mock.recording}
         </span>
       </div>
 
       <div className="grid gap-2 sm:gap-3">
-        <div className="flex items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+        <div className="flex min-w-0 items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 sm:h-10 sm:w-10 sm:rounded-xl">
             <Mic className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-xs font-semibold text-heading sm:text-sm">Live transcript · Speaker ID</p>
-            <p className="truncate text-[10px] text-muted sm:text-xs">
-              &ldquo;Dr. Rao: How long have the symptoms lasted?&rdquo;
-            </p>
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">{mock.liveTranscriptLabel}</p>
+            <p className="text-[10px] text-muted sm:text-xs">{mock.quote}</p>
           </div>
-          <span className="ml-auto shrink-0 text-[10px] font-bold text-success sm:text-[11px]">Live</span>
+          <span className="ml-auto shrink-0 text-[10px] font-bold text-success sm:text-[11px]">{mock.liveBadge}</span>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl border border-primary-200/70 bg-primary-50/80 p-2 dark:border-primary-800 dark:bg-primary-950/60 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+        <div className="flex min-w-0 items-center gap-2 rounded-xl border border-primary-200/70 bg-primary-50/80 p-2 dark:border-primary-800 dark:bg-primary-950/60 sm:gap-3 sm:rounded-2xl sm:p-3.5">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink-900 text-white dark:bg-white dark:text-ink-900 sm:h-10 sm:w-10 sm:rounded-xl">
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-xs font-semibold text-heading sm:text-sm">AI Medical Scribe</p>
-            <p className="truncate text-[10px] text-muted sm:text-xs">
-              Generating summary · ICD-10 suggestions · interaction check
-            </p>
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">{mock.aiScribeLabel}</p>
+            <p className="text-[10px] text-muted sm:text-xs">{mock.generatingSummary}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
+        <div className="flex min-w-0 items-center gap-2 rounded-xl border border-line/70 bg-surface-2/70 p-2 sm:gap-3 sm:rounded-2xl sm:p-3.5">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 sm:h-10 sm:w-10 sm:rounded-xl">
             <FileText className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-xs font-semibold text-heading sm:text-sm">Summary ready for review</p>
-            <p className="truncate text-[10px] text-muted sm:text-xs">SOAP note drafted · awaiting clinician approval</p>
+            <p className="truncate text-xs font-semibold text-heading sm:text-sm">{mock.summaryReady}</p>
+            <p className="text-[10px] text-muted sm:text-xs">{mock.soapNote}</p>
           </div>
           <span className="ml-auto hidden shrink-0 rounded-full bg-warning/10 px-2.5 py-1 text-[11px] font-bold text-warning sm:inline-block">
-            Review
+            {mock.review}
           </span>
         </div>
       </div>
 
       <div className="mt-3 grid grid-cols-3 gap-2 border-t border-line/70 pt-2.5 text-center sm:mt-5 sm:gap-3 sm:pt-4">
-        {[
-          { label: "Speaker ID", value: "Dr. Rao" },
-          { label: "Segments", value: "18" },
-          { label: "Status", value: "Offline-safe" },
-        ].map((item) => (
+        {stats.map((item) => (
           <div key={item.label} className="min-w-0">
             <p className="truncate font-display text-xs font-semibold text-heading sm:text-lg">{item.value}</p>
             <p className="truncate text-[8px] font-bold uppercase tracking-wider text-muted sm:text-[10px]">
@@ -173,6 +232,8 @@ function DashboardMock() {
 }
 
 function TiltVisual() {
+  const { hero } = useDict();
+  const mock = hero.mock;
   const reduceMotion = useReducedMotion();
   const pointerX = useMotionValue(0.5);
   const pointerY = useMotionValue(0.5);
@@ -209,12 +270,12 @@ function TiltVisual() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -left-1 -top-2.5 sm:-left-4 sm:-top-5 md:-left-10"
+        className="absolute -left-1 -top-4 sm:-left-4 sm:-top-5 md:-left-10"
         style={{ transform: "translateZ(40px)" }}
       >
         <span className="flex animate-float items-center gap-1 rounded-full border border-line/70 bg-surface px-2 py-1 text-[9px] font-bold text-heading shadow-card-hover sm:gap-2 sm:px-4 sm:py-2 sm:text-xs">
           <WifiOff className="h-3 w-3 text-accent-600 sm:h-4 sm:w-4" aria-hidden />
-          Works offline
+          {mock.offlineBadge}
         </span>
       </motion.div>
 
@@ -222,7 +283,7 @@ function TiltVisual() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -bottom-2.5 -right-1 sm:-bottom-5 sm:-right-3 md:-right-8"
+        className="absolute -bottom-4 -right-1 sm:-bottom-5 sm:-right-3 md:-right-8"
         style={{ transform: "translateZ(40px)" }}
       >
         <span
@@ -230,7 +291,7 @@ function TiltVisual() {
           style={{ animationDelay: "-3s" }}
         >
           <ShieldCheck className="h-3 w-3 text-primary-600 sm:h-4 sm:w-4" aria-hidden />
-          Clinician-approved
+          {mock.clinicianApprovedBadge}
         </span>
       </motion.div>
     </motion.div>
@@ -238,6 +299,7 @@ function TiltVisual() {
 }
 
 export function Hero() {
+  const { hero, common } = useDict();
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -272,7 +334,7 @@ export function Hero() {
       <div className="container-page relative flex flex-col items-center gap-6 text-center sm:hidden">
         <motion.span variants={fadeUp} initial="hidden" animate="visible" custom={0} className="eyebrow">
           <span className="eyebrow-dot" aria-hidden />
-          AI agents built for healthcare
+          {hero.eyebrow}
         </motion.span>
 
         <motion.h1
@@ -301,7 +363,7 @@ export function Hero() {
 
         <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.7}>
           <BookDemoButton className="btn-solid group px-8 py-3 text-base">
-            Book a demo
+            {common.bookDemo}
             <span className="btn-chip">
               <ArrowRight className="h-4 w-4" aria-hidden />
             </span>
@@ -314,7 +376,7 @@ export function Hero() {
         <div className="flex min-w-0 flex-col items-start gap-7">
           <motion.span variants={fadeUp} initial="hidden" animate="visible" custom={0} className="eyebrow">
             <span className="eyebrow-dot" aria-hidden />
-            AI agents built for healthcare
+            {hero.eyebrow}
           </motion.span>
 
           <motion.h1
@@ -323,11 +385,10 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             custom={0.08}
-            className="font-display text-6xl font-medium leading-[1.05] tracking-tight text-heading xl:text-7xl"
+            className="max-w-full font-display text-6xl font-medium leading-[1.05] tracking-tight text-heading xl:text-7xl"
           >
-            AI Clinical Assistant
-            <br />
-            for Every Consultation
+            {hero.headlineLine1}{" "}
+            <GradientPhrase>{hero.headlineRotatingPhrases[0]}</GradientPhrase>
           </motion.h1>
 
           <motion.p
@@ -337,11 +398,9 @@ export function Hero() {
             custom={0.16}
             className="max-w-xl text-lg leading-relaxed text-body"
           >
-            MedConverse AI listens to every consultation, automatically creates
-            clinical documentation, generates AI-powered summaries, supports
-            prescription workflows, suggests medical codes, identifies potential
-            drug interactions, and streamlines follow-up care — so{" "}
-            <RotatingWord /> can focus on patients, not paperwork.
+            {hero.subtitlePrefix}
+            <RotatingWord />
+            {hero.subtitleSuffix}
           </motion.p>
 
           <motion.div
@@ -349,37 +408,18 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             custom={0.24}
-            className="flex flex-wrap items-center gap-4"
+            className="flex flex-wrap items-center gap-3 lg:gap-4"
           >
-            <BookDemoButton className="btn-solid group py-2 pl-6 pr-2 text-base">
-              Book a demo
+            <BookDemoButton className="btn-solid group py-2 pl-5 pr-2 text-sm lg:pl-6 lg:text-base">
+              {common.bookDemo}
               <span className="btn-chip">
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
             </BookDemoButton>
-            <a href="#demo" className="btn-ghost px-7 py-3.5 text-base">
-              See how it works
+            <a href="#demo" className="btn-ghost px-5 py-3 text-sm lg:px-7 lg:py-3.5 lg:text-base">
+              {hero.seeHowItWorks}
             </a>
           </motion.div>
-
-          <motion.ul
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0.32}
-            className="flex flex-wrap items-center gap-x-2 gap-y-2 text-[13px] font-semibold text-muted"
-          >
-            {heroTrustStrip.map((item, index) => (
-              <li key={item} className="flex items-center gap-2">
-                {item}
-                {index < heroTrustStrip.length - 1 ? (
-                  <span aria-hidden className="text-line">
-                    ·
-                  </span>
-                ) : null}
-              </li>
-            ))}
-          </motion.ul>
         </div>
 
         <motion.div
@@ -396,6 +436,25 @@ export function Hero() {
           <TiltVisual />
         </motion.div>
       </div>
+
+      <motion.ul
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={0.4}
+        className="container-page relative hidden flex-wrap items-center gap-x-2 gap-y-2 pt-10 text-[13px] font-semibold text-muted sm:flex lg:pt-12"
+      >
+        {hero.trustStrip.map((item, index) => (
+          <li key={item} className="flex items-center gap-2">
+            {item}
+            {index < hero.trustStrip.length - 1 ? (
+              <span aria-hidden className="text-line">
+                ·
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </motion.ul>
     </section>
   );
 }

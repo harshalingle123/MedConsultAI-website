@@ -5,11 +5,36 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How MedConverse AI collects, uses, stores, and protects information when you use our platform.",
+  alternates: { canonical: "https://medconverse.ai/privacy" },
+  openGraph: {
+    title: "Privacy Policy | MedConverse AI",
+    description:
+      "How MedConverse AI collects, uses, stores, and protects information when you use our platform.",
+  },
+  twitter: {
+    title: "Privacy Policy | MedConverse AI",
+    description:
+      "How MedConverse AI collects, uses, stores, and protects information when you use our platform.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://medconverse.ai" },
+    { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://medconverse.ai/privacy" },
+  ],
 };
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="July 2026">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <LegalPage type="privacy" lastUpdated="July 2026">
       <p>
         At <strong>MedConverse AI</strong>, we are committed to protecting the privacy
         and security of healthcare professionals, organizations, and patients. This
@@ -82,6 +107,7 @@ export default function PrivacyPolicyPage() {
         <strong>Email:</strong>{" "}
         <a href="mailto:admin@medconverse.ai">admin@medconverse.ai</a>
       </p>
-    </LegalPage>
+      </LegalPage>
+    </>
   );
 }

@@ -1,21 +1,25 @@
-import { benefits } from "@/lib/content";
+"use client";
+
 import { iconMap } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function Benefits() {
+  const dict = useDict();
+
   return (
     <section className="section" aria-labelledby="benefits-heading">
       <div className="container-page">
         <SectionHeading
           id="benefits-heading"
-          eyebrow="Why MedConverse"
-          title="Documentation burden, solved — not shifted"
-          subtitle="MedConverse AI removes the after-hours charting without removing the clinician from the decision. Everyone touching a consultation benefits."
+          eyebrow={dict.benefits.eyebrow}
+          title={dict.benefits.title}
+          subtitle={dict.benefits.subtitle}
         />
 
         <Stagger className="grid gap-6 sm:grid-cols-2" staggerDelay={0.09}>
-          {benefits.map((benefit) => {
+          {dict.benefits.items.map((benefit) => {
             const Icon = iconMap[benefit.icon];
             return (
               <StaggerItem key={benefit.title}>

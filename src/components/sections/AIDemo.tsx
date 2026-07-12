@@ -5,28 +5,12 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-mot
 import { FileText, Mic, RotateCcw, Stethoscope, User } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-
-type Message = {
-  from: "patient" | "doctor" | "system";
-  text: string;
-};
-
-const script: Message[] = [
-  { from: "patient", text: "I've had a mild fever and a dry cough for the last three days." },
-  { from: "doctor", text: "Any shortness of breath, or pain when you breathe in?" },
-  { from: "patient", text: "No pain, just some tightness in my chest and I've been feeling tired." },
-  { from: "doctor", text: "Let's check your oxygen levels and get a chest X-ray to be safe. I'll also prescribe something for the fever." },
-  { from: "system", text: "Speakers identified: Dr. Rao · Patient — 4 segments transcribed" },
-  { from: "system", text: "AI Medical Scribe: summary generated · ICD-10 suggestions ready · no drug interactions flagged" },
-];
-
-const highlights = [
-  { label: "Real-time speaker identification", detail: "“Dr. Rao” vs. “Patient,” labeled automatically" },
-  { label: "Structured clinical summary", detail: "SOAP-style documentation drafted for review" },
-  { label: "Coding & safety checks", detail: "ICD-10 suggestions and drug-interaction flags included" },
-];
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function AIDemo() {
+  const { demo } = useDict();
+  const script = demo.script;
+  const highlights = demo.highlights;
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "-120px" });
   const reduceMotion = useReducedMotion();
@@ -75,9 +59,9 @@ export function AIDemo() {
       <div className="container-page">
         <SectionHeading
           id="demo-heading"
-          eyebrow="See it in action"
-          title="Watch a consultation become a clinical record"
-          subtitle="This is an illustrative walkthrough of the AI Medical Scribe — from live, speaker-identified transcription to a structured summary ready for the clinician to review."
+          eyebrow={demo.eyebrow}
+          title={demo.title}
+          subtitle={demo.subtitle}
         />
 
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
@@ -105,17 +89,17 @@ export function AIDemo() {
                     <Mic className="h-5 w-5" aria-hidden />
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-heading">AI Medical Scribe</p>
+                    <p className="text-sm font-bold text-heading">{demo.cardTitle}</p>
                     <p className="flex items-center gap-1.5 text-xs text-success">
                       <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-success" aria-hidden />
-                      Transcribing live
+                      {demo.transcribingLive}
                     </p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setRunId((id) => id + 1)}
-                  aria-label="Replay demo"
+                  aria-label={demo.replayAria}
                   className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950"
                 >
                   <RotateCcw className="h-4 w-4" aria-hidden />
@@ -168,7 +152,7 @@ export function AIDemo() {
                           }`}
                         >
                           <span className="sr-only">
-                            {message.from === "patient" ? "Patient: " : "Dr. Rao: "}
+                            {message.from === "patient" ? demo.patientSrLabel : demo.doctorSrLabel}
                           </span>
                           {message.text}
                         </p>
@@ -178,7 +162,7 @@ export function AIDemo() {
                 </AnimatePresence>
 
                 {typing ? (
-                  <div className="flex items-center gap-1.5 self-start rounded-2xl rounded-bl-md border border-line bg-surface-2 px-4 py-3" aria-label="Transcribing">
+                  <div className="flex items-center gap-1.5 self-start rounded-2xl rounded-bl-md border border-line bg-surface-2 px-4 py-3" aria-label={demo.transcribingAria}>
                     {[0, 1, 2].map((dot) => (
                       <span
                         key={dot}

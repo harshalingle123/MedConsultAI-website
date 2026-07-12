@@ -1,5 +1,7 @@
+"use client";
+
 import { CheckCircle2 } from "lucide-react";
-import { capabilityRowA, capabilityRowB } from "@/lib/content";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   const doubled = [...items, ...items];
@@ -26,11 +28,12 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 }
 
 export function CapabilityMarquee() {
+  const dict = useDict();
   return (
     <section aria-label="What MedConverse agents handle" className="py-8 md:py-12">
       <div className="flex flex-col gap-4">
-        <MarqueeRow items={capabilityRowA} />
-        <MarqueeRow items={capabilityRowB} reverse />
+        <MarqueeRow items={dict.capabilityRowA} />
+        <MarqueeRow items={dict.capabilityRowB} reverse />
       </div>
     </section>
   );

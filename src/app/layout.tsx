@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Sora, Manrope } from "next/font/google";
 import "./globals.css";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -40,16 +41,14 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "MedConverse AI",
-    title: "MedConverse AI — AI Medical Scribe & Consultation Platform",
-    description:
-      "MedConverse AI listens to every consultation, automatically creates clinical documentation, generates AI-powered summaries, supports prescription workflows, suggests medical codes, identifies potential drug interactions, and streamlines follow-up care — so doctors can focus on patients, not paperwork.",
+    title: "MedConverse AI | AI Medical Assistant",
+    description: "Automate patient conversations with AI",
     images: [{ url: "/assets/images/HeroImage.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MedConverse AI — AI Medical Scribe & Consultation Platform",
-    description:
-      "MedConverse AI listens to every consultation, automatically creates clinical documentation, generates AI-powered summaries, supports prescription workflows, suggests medical codes, identifies potential drug interactions, and streamlines follow-up care — so doctors can focus on patients, not paperwork.",
+    title: "MedConverse AI",
+    description: "Healthcare AI Platform",
     images: ["/assets/images/HeroImage.png"],
   },
   robots: { index: true, follow: true },
@@ -64,6 +63,14 @@ export const viewport: Viewport = {
 
 const themeInit = `(function(){try{var t=localStorage.getItem("mc-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})();`;
 
+const RTL_LOCALES = ["ar"];
+const SUPPORTED_LOCALES = ["en", "hi", "ar", "es", "fr", "de", "pt", "it", "ja", "ko", "zh"];
+const localeInit = `(function(){try{var supported=${JSON.stringify(
+  SUPPORTED_LOCALES
+)};var rtl=${JSON.stringify(
+  RTL_LOCALES
+)};var l=localStorage.getItem("mc-locale");if(!l){var tags=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language])||[];for(var i=0;i<tags.length;i++){var p=(tags[i]||"").toLowerCase().split("-")[0];if(p==="zh"){l="zh";break}if(supported.indexOf(p)!==-1){l=p;break}}}if(!l||supported.indexOf(l)===-1){l="en"}document.documentElement.lang=l;document.documentElement.dir=rtl.indexOf(l)!==-1?"rtl":"ltr"}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,8 +80,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script dangerouslySetInnerHTML={{ __html: localeInit }} />
       </head>
-      <body className={`${sora.variable} ${manrope.variable}`}>{children}</body>
+      <body className={`${sora.variable} ${manrope.variable}`}>
+        <LocaleProvider>{children}</LocaleProvider>
+      </body>
     </html>
   );
 }

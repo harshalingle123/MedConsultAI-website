@@ -1,10 +1,14 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
-import { productOverview } from "@/lib/content";
 import { iconMap } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { useDict } from "@/lib/i18n/LocaleProvider";
 
 export function ProductOverview() {
+  const { productOverview } = useDict();
+
   return (
     <section className="section" aria-labelledby="overview-heading">
       <div className="container-page">
